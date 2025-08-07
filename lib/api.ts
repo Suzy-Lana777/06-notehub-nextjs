@@ -23,3 +23,18 @@ export const getNotes = async () => {
   const res = await axios.get<NoteListResponse>("/notes");
   return res.data;
 };
+
+// Інший код файлу
+
+
+export const getSingleNote = async (id: string) => {
+  const res = await axios.get<Note>(`/notes/${id}`);
+  return res.data;
+};
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// export const getNotes = async () => {
+//   await delay(2000);
+//   const res = await axios.get<NoteListResponse>('/notes');
+//   return res.data;
+// };

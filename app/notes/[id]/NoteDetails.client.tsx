@@ -1,12 +1,12 @@
 // app/notes/[id]/NoteDetails.client.tsx
 
-"use client";
+'use client';
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation';
 import { getSingleNote } from "@/lib/api";
 
-const NoteDetailsClient = () => {
+export default function NoteDetailsClient () {
 	const { id } = useParams<{ id: string }>();
 
   const { data: note, isLoading, error } = useQuery({
@@ -15,9 +15,9 @@ const NoteDetailsClient = () => {
     refetchOnMount: false,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading, please wait...</p>;
 
-  if (error || !note) return <p>Some error..</p>;
+  if (error || !note) return <p>Could not fetch the list of notes. {error?.message}</p>;
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`
@@ -32,4 +32,4 @@ const NoteDetailsClient = () => {
   );
 };
 
-export default NoteDetailsClient;
+

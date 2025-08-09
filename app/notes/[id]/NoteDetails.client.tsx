@@ -5,6 +5,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from 'next/navigation';
 import { getSingleNote } from "@/lib/api";
+import css from "./NoteDetails.module.css"
 
 export default function NoteDetailsClient () {
 	const { id } = useParams<{ id: string }>();
@@ -17,17 +18,21 @@ export default function NoteDetailsClient () {
 
   if (isLoading) return <p>Loading, please wait...</p>;
 
-  if (error || !note) return <p>Could not fetch the list of notes. {error?.message}</p>;
+  if (error || !note) return <p>Something went wrong. {error?.message}</p>;
 
   const formattedDate = note.updatedAt
     ? `Updated at: ${note.updatedAt}`
     : `Created at: ${note.createdAt}`;
 
   return (
-    <div>
-      <h2>{note.title}</h2>
-      <p>{note.content}</p>
-      <p>{formattedDate}</p>
+    <div className={css.container}>
+      <div className={css.item}>
+          <div className={css.header}>
+        <h2>{note.title}</h2>
+          </div>
+      <p className={css.content}>{note.content}</p>
+      <p className={css.date}>{formattedDate}</p>
+      </div>
     </div>
   );
 };

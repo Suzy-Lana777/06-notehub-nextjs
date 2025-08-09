@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import css from '../App/App.module.css';
+import css from '../../app/notes/page.module.css';
 import NoteList from '../../components/NoteList/NoteList';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import Pagination from '../../components/Pagination/Pagination';
@@ -66,33 +66,23 @@ export default function NotesClient({
   const totalPages = data?.totalPages ?? 0;
 
   return (
-    <div className={css.app}>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
-
-      <header className={css.toolbar}>
-        <SearchBox value={inputValue} onSearch={handleSearchChange} />
+     <div className={css.app}>
+	    <header className={css.toolbar}>
+        <SearchBox value={inputValue} onSearch={handleSearchChange}/>
         {totalPages > 1 && (
-          <Pagination
-            totalNumberOfPages={totalPages}
-            currentActivePage={currentPage}
-            setPage={setCurrentPage}
-          />
-        )}
-        <button className={css.button} onClick={openModal}>
-          Create note +
-        </button>
+        <Pagination totalNumberOfPages={totalPages} currentActivePage={currentPage} setPage={setCurrentPage} />)}
+		    <button className={css.button} onClick={openModal}>Create note +</button>
       </header>
 
-       {/* {isLoading && <Loading />}
-      {isError && <ErrorMessage message="Something went wrong." />}
-     
-      {!isLoading && !isError && notes.length > 0 && <NoteList notes={notes} />}  */}
-
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onCloseModal={closeModal} />
-        </Modal>
+      {isLoading ? (
+        <p className={css.loading}>Loading notes...</p>
+      ) : (
+        <NoteList notes={data?.notes ?? []} />
       )}
-    </div>
+      {isModalOpen && ( <Modal onClose={closeModal}>
+        <NoteForm onCloseModal={closeModal}/>
+      </Modal>
+      )}
+  </div>
   );
 }

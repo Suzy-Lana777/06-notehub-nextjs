@@ -61,6 +61,9 @@ export const deleteNote = async (noteId: string) => {
 export const getSingleNote = async (id: string) => {
   const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
   
-  const res = await axios.get<Note>(`/notes/${id}`);
+  const res = await axios.get<Note>(`/notes/${id}`, {
+    headers: { Authorization: `Bearer ${myKey}` },
+  });
+  
   return res.data;
 };

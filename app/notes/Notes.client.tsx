@@ -28,9 +28,9 @@ export default function NotesClient({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const [inputValue, setInputValue] = useState(initialQuery);
-  const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [inputValue, setInputValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 

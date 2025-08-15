@@ -48,7 +48,7 @@ export const createNote = async (newNote: NewNote) => {
   return res.data;
 };
 
-export const deleteNote = async (noteId: number) => {
+export const deleteNote = async (noteId: string) => {
   const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
   const res = await axios.delete<Note>(`/notes/${noteId}`, {
@@ -59,6 +59,8 @@ export const deleteNote = async (noteId: number) => {
 };
 
 export const getSingleNote = async (id: string) => {
+  const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+  
   const res = await axios.get<Note>(`/notes/${id}`);
   return res.data;
 };

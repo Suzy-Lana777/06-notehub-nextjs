@@ -7,9 +7,6 @@ import Pagination from '../../components/Pagination/Pagination';
 import Modal from '../../components/Modal/Modal';
 import NoteForm from '../../components/NoteForm/NoteForm';
 import type { FetchNotesResponse } from "@/lib/api";
-// import Loading from '../Loading/Loading';
-// import ErrorMessage from '../ErrorMessage/ErrorMessage';
-// import EmptyState from '../EmptyState/EmptyState';
 
 import { fetchNotes } from '../../lib/api';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -31,9 +28,9 @@ export default function NotesClient({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const [inputValue, setInputValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [inputValue, setInputValue] = useState(initialQuery);
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 
@@ -51,7 +48,11 @@ export default function NotesClient({
     queryKey: ['notes', currentPage, debouncedSearchQuery],
     queryFn: () => fetchNotes(currentPage, debouncedSearchQuery),
     placeholderData: keepPreviousData,
-  });
+    initialData:
+    currentPage === initialPage && searchQuery === initialQuery
+      ? initialData
+      : undefined,
+      });
 
   useEffect(() => {
     if (isError) {

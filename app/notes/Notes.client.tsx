@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import css from '../../app/notes/page.module.css';
 import NoteList from '../../components/NoteList/NoteList';
